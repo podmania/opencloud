@@ -77,7 +77,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
       - name: Build OCI image
-        run: nix build .#{{ name }}-image --impure
+        run: nix build .#opencloud-image --impure
       - name: Load and tag
         run: |
           docker load < result
