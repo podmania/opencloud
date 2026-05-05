@@ -9,6 +9,7 @@
     system = builtins.currentSystem;
     pkgs = nixpkgs.legacyPackages.${system};
   in {
+    opencloudVersion = pkgs.opencloud.version;
     packages.${system} = {
       opencloud-image = pkgs.dockerTools.buildLayeredImage {
         name = "opencloud";
