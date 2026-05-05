@@ -1,12 +1,12 @@
 services:
   sonarr:
-    image: ghcr.io/podmania/<% name %>:latest
+    image: ghcr.io/podmania/opencloud:latest
     # set to host user id and gid
     # defaults to 1000:1000
     # user: 1001:1001
-    container_name: <% name %>
+    container_name: opencloud
     ports:
-      - 1234:1234
+      - 9200:9200
     volumes:   
       - ./config:/config
       - ./data:/data
