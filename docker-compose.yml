@@ -1,5 +1,5 @@
 services:
-  sonarr:
+  opencloud:
     image: ghcr.io/podmania/opencloud:latest
     # set to host user id and gid
     # defaults to 1000:1000
