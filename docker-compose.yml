@@ -12,17 +12,10 @@ services:
       - ./data:/var/lib/opencloud
       - /etc/localtime:/etc/localtime:ro # optional: use either TZ variable or localtime mapping, not both
     environment:
-      - ADDRESS=127.0.0.1
-      - GROUP=opencloud
-      - PORT=9200
-      - STATE_DIR=/var/lib/opencloud
-      - URL=https://localhost:9200
-      - USER=opencloud
-      - IDP_ASSET_PATH=${pkgs.opencloud}/assets
-      - OC_BASE_DATA_PATH=/var/lib/opencloud
-      - OC_CONFIG_DIR=/etc/opencloud
-      - OC_INSECURE=true
+      # https://docs.opencloud.eu/docs/dev/server/services/web/environment-variables/
       - OC_URL=https://localhost:9200
-      - PROXY_HTTP_ADDR=127.0.0.1:9200
-      - WEB_ASSET_CORE_PATH=${pkgs.opencloud}
+      # Optional:
+      # OC_INSECURE="true" # set to true if using self‑signed certificates
+      # PROXY_HTTP_ADDR: 0.0.0.0:9200
+      # OC_LOG_LEVEL: error # log level (error, warn, info, debug)
     restart: unless-stopped
