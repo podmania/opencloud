@@ -1,5 +1,5 @@
 {
-  description = "<% name.capitalize() %> distroless image";
+  description = "Opencloud distroless image";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -10,22 +10,22 @@
     pkgs = nixpkgs.legacyPackages.${system};
   in {
     packages.${system} = {
-      <% name %>-image = pkgs.dockerTools.buildLayeredImage {
-        name = "<% name %>";
+      opencloud-image = pkgs.dockerTools.buildLayeredImage {
+        name = "opencloud";
         tag = "latest";
         contents = [ 
-          pkgs.<% name %>
+          pkgs.opencloud
         ];
         config = {
           ExposedPorts = {
-            "1234/tcp" = {};
+            "9200/tcp" = {};
           };
           Volumes = {
             "/config" = {};
             "/data" = {};
           };
 
-          Cmd = [ "${pkgs.<% name %>}/bin/<% name %>" ];
+          Cmd = [ "${pkgs.opencloud}/bin/opencloud" ];
           # Distroless non‑root user
           User = "1000";
           WorkingDir = "/config";
@@ -33,9 +33,9 @@
       };
     };
 
-    # Expose the <% name %> version for CI workflows
-    <% name %>Version = pkgs.<% name %>.version;
+    # Expose the opencloud version for CI workflows
+    opencloudVersion = pkgs.opencloud.version;
 
-    defaultPackage.${system} = self.packages.${system}.<% name %>-image;
+    defaultPackage.${system} = self.packages.${system}.opencloud-image;
   };
 }
