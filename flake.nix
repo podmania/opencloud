@@ -16,6 +16,8 @@
         tag = "latest";
         contents = [
           pkgs.opencloud
+          pkgs.opencloud.web
+          pkgs.opencloud.idp-web
           pkgs.execline
         ];
         config = {
