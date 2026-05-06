@@ -21,12 +21,15 @@
           pkgs.execline
         ];
         config = {
-          # currently left as default, can be manually overriden in docker-compose.yml
           # https://docs.opencloud.eu/docs/dev/server/services/web/environment-variables/
-          # Env = [];
+          Env = [
+            "IDP_ASSET_PATH=${pkgs.opencloud.idp-web}/assets"
+            "WEB_ASSET_CORE_PATH = ${pkgs.opencloud.web}"
+          ];
 
           ExposedPorts = {
             "9200/tcp" = {};
+            "9200/udp" = {};
           };
 
           Volumes = {
