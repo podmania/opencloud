@@ -24,17 +24,20 @@
           # https://docs.opencloud.eu/docs/dev/server/services/web/environment-variables/
           Env = [
             "IDP_ASSET_PATH=${pkgs.opencloud.idp-web}/assets"
-            "WEB_ASSET_CORE_PATH = ${pkgs.opencloud.web}"
+            "WEB_ASSET_CORE_PATH=${pkgs.opencloud.web}"
+            "OC_CONFIG_DIR=/etc/opencloud"
+            "OC_BASE_DATA_PATH=/var/lib/opencloud"
+            "PROXY_HTTP_ADDR=0.0.0.0:9200"
+            "OC_URL=https://localhost:9200"
           ];
 
           ExposedPorts = {
             "9200/tcp" = {};
-            "9200/udp" = {};
           };
 
           Volumes = {
-            "/config" = {};
-            "/data" = {};
+            "/etc/opencloud" = {};
+            "/var/lib/opencloud" = {};
           };
 
           # Run init once, then start the server
@@ -44,7 +47,7 @@
           ];
 
           User = "1000";
-          WorkingDir = "/config";
+          WorkingDir = "/etc/opencloud";
         };
       };
     };
