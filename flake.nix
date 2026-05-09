@@ -45,9 +45,6 @@
             "${pkgs.execline}/bin/execlineb" "-c"
             "foreground { ${pkgs.opencloud}/bin/opencloud init } ${pkgs.opencloud}/bin/opencloud server"
           ];
-
-          User = "1000";
-          WorkingDir = "/etc/opencloud";
         };
       };
     };
