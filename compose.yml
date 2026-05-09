@@ -1,0 +1,14 @@
+services:
+  opencloud:
+    image: ghcr.io/podmania/opencloud:latest
+    userns_mode: "keep-id"
+    container_name: opencloud
+    ports:
+      - 9200:9200
+    volumes:
+      - ./config:/etc/opencloud
+      - ./data:/var/lib/opencloud
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - OC_URL=https://localhost:9200
+    restart: unless-stopped
