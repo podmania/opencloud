@@ -17,12 +17,6 @@
         name = "opencloud";
         tag = "latest";
         fromImage = base.packages.${system}.base-image;
-        copyToRoot = [
-          pkgs.opencloud
-          pkgs.opencloud.web
-          pkgs.opencloud.idp-web
-          pkgs.execline
-        ];
         config = {
           Env = [
             "IDP_ASSET_PATH=${pkgs.opencloud.idp-web}/assets"
