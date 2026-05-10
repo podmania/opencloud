@@ -13,7 +13,7 @@ RUN EXECLINE=$(readlink -f /build/execline-bin/bin/execlineb) && \
     printf '#!%s -c\nforeground { /nix/store/app/bin/opencloud init } /nix/store/app/bin/opencloud server\n' "$EXECLINE" > /rootfs/nix/store/app/bin/start && \
     chmod +x /rootfs/nix/store/app/bin/start
 
-FROM ghcr.io/podmania/base:latest
+FROM ghcr.io/podmania/base:latest-debug
 COPY --from=builder /rootfs /
 ENV IDP_ASSET_PATH=/nix/store/app/assets
 ENV WEB_ASSET_CORE_PATH=/nix/store/app/web
