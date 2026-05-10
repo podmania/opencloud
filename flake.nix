@@ -11,10 +11,21 @@
     system = builtins.currentSystem;
     pkgs = nixpkgs.legacyPackages.${system};
     n2c = nix2container.outputs.packages.${system}.nix2container;
+    version = "6.1.0";
+    srcHash = "sha256-vQ7p+2AbLTcHvHn2RSYAMmCa9RxPfRXn2eRVp+QLWFI=";
+    pkg = pkgs.opencloud.overrideAttrs (old: {
+      inherit version;
+      src = pkgs.fetchFromGitHub {
+        owner = "opencloud-eu";
+        repo = "opencloud";
+        rev = "v${version}";
+        hash = srcHash;
+      };
+    });
     imageConfig = {
       Env = [
-        "IDP_ASSET_PATH=${pkgs.opencloud.idp-web}/assets"
-        "WEB_ASSET_CORE_PATH=${pkgs.opencloud.web}"
+        "IDP_ASSET_PATH=${pkg.idp-web}/assets"
+        "WEB_ASSET_CORE_PATH=${pkg.web}"
         "OC_CONFIG_DIR=/etc/opencloud"
         "OC_BASE_DATA_PATH=/var/lib/opencloud"
         "PROXY_HTTP_ADDR=0.0.0.0:9200"
@@ -29,7 +40,7 @@
       };
       Cmd = [
         "${pkgs.execline}/bin/execlineb" "-c"
-        "foreground { ${pkgs.opencloud}/bin/opencloud init } ${pkgs.opencloud}/bin/opencloud server"
+        "foreground { ${pkg}/bin/opencloud init } ${pkg}/bin/opencloud server"
       ];
     };
   in {
@@ -48,11 +59,11 @@
         config = imageConfig;
       };
 
-      opencloud = pkgs.opencloud;
+      opencloud = pkg;
 
       default = self.packages.${system}.opencloud-image;
     };
 
-    opencloudVersion = pkgs.opencloud.version;
+    opencloudVersion = version;
   };
 }
