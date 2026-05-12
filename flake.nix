@@ -11,8 +11,8 @@
     system = builtins.currentSystem;
     pkgs = nixpkgs.legacyPackages.${system};
     n2c = nix2container.outputs.packages.${system}.nix2container;
-    version = "6.1.0";
-    srcHash = "sha256-vQ7p+2AbLTcHvHn2RSYAMmCa9RxPfRXn2eRVp+QLWFI=";
+    version = "6.2.0";
+    srcHash = "sha256-gWz6L0/lBJvhQ/6+j3g2ENPRyQYZ2jGz+i+nUZa+5zQ=";
     pkg = pkgs.opencloud.overrideAttrs (old: {
       inherit version;
       src = pkgs.fetchFromGitHub {
